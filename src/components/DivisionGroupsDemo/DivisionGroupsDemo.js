@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -31,12 +32,12 @@ function DivisionGroupsDemo({
   const gridStructure =
     numOfGroups < 4
       ? {
-          gridTemplateColumns: `repeat(${numOfGroups}, 1fr)`,
-        }
+        gridTemplateColumns: `repeat(${numOfGroups}, 1fr)`,
+      }
       : {
-          gridTemplateColumns: '1fr 1fr',
-          gridTemplateRows: '1fr 1fr',
-        };
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateRows: '1fr 1fr',
+      };
 
   return (
     <Card as="section" className={styles.wrapper}>
@@ -62,9 +63,11 @@ function DivisionGroupsDemo({
           {range(numOfGroups).map((groupIndex) => (
             <div key={groupIndex} className={styles.group}>
               {range(numOfItemsPerGroup).map((index) => {
+                const layoutId = `item-${numOfItemsPerGroup * groupIndex + index}`;
                 return (
-                  <div
-                    key={index}
+                  <motion.div
+                    layoutId={layoutId}
+                    key={layoutId}
                     className={styles.item}
                   />
                 );

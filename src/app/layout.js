@@ -4,8 +4,9 @@ import {
   Spline_Sans_Mono,
 } from 'next/font/google';
 import clsx from 'clsx';
+import { cookies } from 'next/headers';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import { LIGHT_TOKENS, DARK_TOKENS, BLOG_TITLE } from '@/constants';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -24,9 +25,16 @@ const monoFont = Spline_Sans_Mono({
   variable: '--font-family-mono',
 });
 
+export const metadata = {
+  title: BLOG_TITLE,
+  description: 'A wonderful blog about JavaScript'
+};
+
 function RootLayout({ children }) {
   // TODO: Dynamic theme depending on user preference
-  const theme = 'light';
+  // const theme = 'light';
+  const savedTheme = cookies().get('color-theme');
+  const theme = savedTheme?.value || 'light';
 
   return (
     <html
